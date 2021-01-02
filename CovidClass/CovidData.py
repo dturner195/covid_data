@@ -525,7 +525,7 @@ class CovidData:
         df3.append(self.df_descartes[self.df_descartes['State only'] == True].drop(['Samples', 'Raw'], axis=1))
         self.df_descartes['Date'] = pd.to_datetime(self.df_descartes['Date'])
         
-        df3.to_csv(path/'combined_data.csv', index=False)
+        df3.to_csv('/Users/_DMT/jupyter/large_files/combined_data.csv', index=False)
         
         self.df_merged = df3
         
