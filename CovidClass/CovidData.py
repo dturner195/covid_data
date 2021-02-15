@@ -125,18 +125,18 @@ class CovidData:
         deaths_url = 'https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_deaths_usafacts.csv'
         population_url = 'https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_county_population_usafacts.csv'
 
-        cases = pd.read_csv(cases_url, dtype='str').melt(id_vars=['countyFIPS', 'County Name', 'State', 'stateFIPS'], 
+        cases = pd.read_csv(cases_url, dtype='str').melt(id_vars=['countyFIPS', 'County Name', 'State', 'StateFIPS'], 
                            value_name='Cases', var_name='Date')
 
         cases.loc[cases['County Name'] =='Statewide Unallocated', 'countyFIPS'] = cases.loc[cases['County Name'] == 
-                                                                                   'Statewide Unallocated', 'stateFIPS'] + '000'
+                                                                                   'Statewide Unallocated', 'StateFIPS'] + '000'
 
 
-        deaths = pd.read_csv(deaths_url, dtype='str').melt(id_vars=['countyFIPS', 'County Name', 'State', 'stateFIPS'], 
+        deaths = pd.read_csv(deaths_url, dtype='str').melt(id_vars=['countyFIPS', 'County Name', 'State', 'StateFIPS'], 
                            value_name='Deaths', var_name='Date')
 
         deaths.loc[deaths['County Name'] =='Statewide Unallocated', 'countyFIPS'] = deaths.loc[deaths['County Name'] == 
-                                                                                   'Statewide Unallocated', 'stateFIPS'] + '000'
+                                                                                   'Statewide Unallocated', 'StateFIPS'] + '000'
 
         df = pd.merge(cases, deaths[['countyFIPS', 'State', 'Date', 'Deaths']], on=['countyFIPS', 'State','Date'])
 
@@ -151,7 +151,7 @@ class CovidData:
         
         df['State'] = df['State'].apply(lambda x:  self.us_state_flip.get(x, np.nan))
 
-        df.drop('stateFIPS', axis=1, inplace=True)
+        df.drop('StateFIPS', axis=1, inplace=True)
         df.columns = ['fips', 'County', 'State', 'Date', 'Cases', 'Deaths', 'Population']
         df['Date'] = pd.to_datetime(df['Date'])
         bol = (~df['Deaths'].str.isnumeric() | ~df['Cases'].str.isnumeric() | 
