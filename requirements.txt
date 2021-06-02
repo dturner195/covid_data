@@ -95,7 +95,7 @@ threadpoolctl @ file:///tmp/tmp9twdgx9k/threadpoolctl-2.1.0-py3-none-any.whl
 toolz==0.10.0
 tornado==6.0.4
 traitlets==4.3.3
-urllib3==1.25.9
+urllib3==1.26.5
 wcwidth @ file:///tmp/build/80754af9/wcwidth_1593447189090/work
 Werkzeug==1.0.1
 wrapt==1.12.1
